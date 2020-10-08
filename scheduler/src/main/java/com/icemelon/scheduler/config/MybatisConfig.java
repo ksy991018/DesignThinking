@@ -1,21 +1,27 @@
 package com.icemelon.scheduler.config;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
+@EnableTransactionManagement
 @Configuration
-@MapperScan("com.icemelon.scheduler.mapper")
+@MapperScan(basePackages = {"com.icemelon.scheduler.mapper"})
 public class MybatisConfig {
 
     @Bean
@@ -26,6 +32,12 @@ public class MybatisConfig {
         m.setDataSource(dataSource());
 
         return m;
+    }
+    @ConfigurationProperties(prefix = "spring.datasource.hikari")
+    @Bean
+    public HikariConfig hikariConfig() {
+
+        return new HikariConfig();
     }
     @Bean
     public SqlSessionTemplate template() {
@@ -49,21 +61,11 @@ public class MybatisConfig {
         return factoryBean.getObject();
     }
 
+
     @Bean
     public DataSource dataSource() {
 
-        SingleConnectionDataSource ds = new SingleConnectionDataSource();
-
-        ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-
-        ds.setUrl("jdbc:mysql://localhost:3306/test?serverTimezone=UTC");
-
-        ds.setUsername("root");
-
-        ds.setPassword("wnstjr7");
-
-        ds.setSuppressClose(true);
-        return ds;
+        return new HikariDataSource(hikariConfig());
 
     }
 

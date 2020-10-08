@@ -37,10 +37,10 @@ public class ThyemeLeafConfig {
 
     @Bean
     @Autowired
-    public SpringTemplateEngine templateEngine(MessageSource messageSource, SpringResourceTemplateResolver resolver) {
+    public SpringTemplateEngine templateEngine(MessageSource messageSource) {
 
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(resolver);
+        templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setTemplateEngineMessageSource(messageSource);
 
         return templateEngine;
