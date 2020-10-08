@@ -30,7 +30,7 @@ public class ThyemeLeafConfig {
         templateResolver.setPrefix("classpath:templates/");
         templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("LEGACYHTML5");
+        templateResolver.setTemplateMode("HTML");
         templateResolver.setCacheable(isCache);
         return templateResolver;
     }

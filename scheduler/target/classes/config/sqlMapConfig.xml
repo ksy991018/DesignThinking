@@ -2,5 +2,6 @@
 <configuration>
     <!--typealias => 클래스의 대체 이름 설정-->
     <typeAliases>
+
     </typeAliases>
 </configuration>
