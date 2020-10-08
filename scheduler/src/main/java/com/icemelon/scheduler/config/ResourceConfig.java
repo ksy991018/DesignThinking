@@ -21,10 +21,4 @@ public class ResourceConfig implements WebMvcConfigurer {
     }
 
 
-    @Bean
-    public MultipartResolver multipartResolver() {
-
-        StandardServletMultipartResolver multipartResolver = new StandardServletMultipartResolver();
-        return multipartResolver;
-    }
 }
