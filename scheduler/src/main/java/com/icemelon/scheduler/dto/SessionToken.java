@@ -21,9 +21,17 @@ public class SessionToken {
 
     public static SessionToken fromSession(HttpSession session) {
 
-        UniqueCode code = UniqueCode.fromString((String) session.getAttribute("code"));
+        String temp = (String) session.getAttribute("code");
 
-        NickName name = NickName.of((String) session.getAttribute("name"));
+        UniqueCode code;
+
+        if (temp == null) code = new EmptyCode();
+
+        else code = UniqueCode.fromString(temp);
+
+        temp = (String) session.getAttribute("name");
+
+        NickName name = NickName.of(temp == null ? "" : temp);
 
         return new SessionToken(UserId.of(code,name));
 

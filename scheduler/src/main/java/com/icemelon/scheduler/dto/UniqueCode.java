@@ -50,6 +50,6 @@ public class UniqueCode implements Serializable {
 
         if (!(obj instanceof UniqueCode )) return false;
 
-        return ((UniqueCode) obj).code.equals(code);
+        return code.equals( ((UniqueCode) obj).code);
     }
 }

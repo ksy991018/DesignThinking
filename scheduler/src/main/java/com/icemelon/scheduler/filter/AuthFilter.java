@@ -24,13 +24,20 @@ public class AuthFilter implements Filter {
 
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        String url = request.getHttpServletMapping().getMatchValue();
+        String url = request.getRequestURI();
+
+        if (url.equals("/schedule") || url.equals("/schedule/")) {
+
+            filterChain.doFilter(servletRequest,servletResponse);
+
+            return;
+        }
 
         String[] spStr = url.split("/");
 
-        System.out.println(url);
 
-        String code = spStr[1];
+        String code = spStr[2];
+
 
         UniqueCode uniqueCode = UniqueCode.fromString(code);
 
