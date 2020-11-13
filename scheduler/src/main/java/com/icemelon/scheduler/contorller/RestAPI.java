@@ -22,6 +22,7 @@ public class RestAPI {
     @Autowired
     private SchedulerService service;
 
+
     @PutMapping("/schedule") // create schedule with basic info (minTime, maxTime, timeInterval)  and returns schedule unique code
     public ResponseEntity<UniqueCode> createSchedule(@RequestBody ScheduleInfo info) {
 
@@ -47,13 +48,15 @@ public class RestAPI {
             return ResponseEntity.ok().build();
 
         } catch (Exception e) {
+
             //TODO - catch UserNotFoundException - 404 not found,  WrongPasswordException-  Auth failed
 
             return ResponseEntity.notFound().build();
         }
     }
 
-    /*-@GetMapping("auth/{code}/{userId}")> login for userId
+    /*
+    *@GetMapping("auth/{code}/{userId}")> login for userId
     *
     * Authentication filtered on AuthFilter
     *

@@ -1,10 +1,14 @@
 package com.icemelon.scheduler.dto;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Embeddable
-public class UniqueCode {
+public class UniqueCode implements Serializable {
 
+
+    @Column(name="code" , nullable = false)
     private String code;
 
     public UniqueCode() {
@@ -33,6 +37,12 @@ public class UniqueCode {
     public static UniqueCode fromString(String code) {
 
         return new UniqueCode(code);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return code.hashCode();
     }
 
     @Override

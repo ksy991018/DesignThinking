@@ -9,6 +9,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.autoconfigure.orm.jpa.EntityManagerFactoryBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -16,6 +17,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -25,27 +28,13 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = {"com.icemelon.scheduler.mapper"})
 public class DBConfig {
 
+
     @Bean
-    public JpaTransactionManager transactionManager() {
-
-        JpaTransactionManager manager = new JpaTransactionManager();
-
-        manager.setDataSource(dataSource());
-
-        return manager;
-    }
-    @ConfigurationProperties(prefix = "spring.datasource.hikari")
-    @Bean
-    public HikariConfig hikariConfig() {
-
-        return new HikariConfig();
-    }
-    @Bean
-    public SqlSessionTemplate template() {
+    public SqlSessionTemplate template(DataSource source) {
 
         SqlSessionTemplate template = null;
         try {
-            template = new SqlSessionTemplate(sqlSessionFactory());
+            template = new SqlSessionTemplate(sqlSessionFactory(source));
 
         }
         catch (Exception e) {e.printStackTrace();}
@@ -53,25 +42,18 @@ public class DBConfig {
         return template;
     }
     @Bean
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DataSource source) throws Exception {
 
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-        factoryBean.setDataSource(dataSource());
+
+        factoryBean.setDataSource(source);
 
         ClassPathResource config = new ClassPathResource("/config/sqlMapConfig.xml");
-
-
 
         factoryBean.setConfigLocation(config);
         return factoryBean.getObject();
     }
 
 
-    @Bean
-    public DataSource dataSource() {
-
-        return new HikariDataSource(hikariConfig());
-
-    }
 
 }

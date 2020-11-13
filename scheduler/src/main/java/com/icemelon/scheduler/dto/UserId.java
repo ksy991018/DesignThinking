@@ -2,9 +2,10 @@ package com.icemelon.scheduler.dto;
 
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Embeddable
-public class UserId {
+public class UserId implements Serializable {
 
     private String id;
 
@@ -15,6 +16,14 @@ public class UserId {
 
     public UserId() {
 
+    }
+
+
+    @Override
+    public int hashCode() {
+
+
+        return id.hashCode();
     }
 
     public static UserId of(String id) {

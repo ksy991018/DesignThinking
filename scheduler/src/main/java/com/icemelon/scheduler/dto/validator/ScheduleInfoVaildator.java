@@ -2,7 +2,10 @@ package com.icemelon.scheduler.dto.validator;
 
 
 import com.icemelon.scheduler.dto.ScheduleInfo;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class ScheduleInfoVaildator implements  IScheduleInfoValidator{
 
     private final  int MIN_INTERVAL = 30;

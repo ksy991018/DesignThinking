@@ -1,10 +1,12 @@
 package com.icemelon.scheduler.dto;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class Password {
 
+    @Column(name="password")
     private String password;
 
     public Password() {}
