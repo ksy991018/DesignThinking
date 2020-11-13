@@ -23,8 +23,6 @@ public class SchedulerService {
     private ICodeGenerator codeGenerator; //maybe uuid or something
 
 
-
-
     public ScheduleInfo getScheduleInfo(UniqueCode code) throws ScheduleNotFoundException {
 
         Optional<Schedule> schedule = repository.findById(code);

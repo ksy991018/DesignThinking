@@ -1,11 +1,14 @@
 package com.icemelon.scheduler.dto;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
 public class NickName implements Serializable {
 
+
+    @Column(name="nickname", length = 20)
     private String nickname;
 
     private NickName(String name) {

@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class UniqueCode implements Serializable {
 
 
-    @Column(name="code" , nullable = false)
+    @Column(name="code" , nullable = false, length = 50)
     private String code;
 
     public UniqueCode() {
