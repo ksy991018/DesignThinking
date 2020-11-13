@@ -45,11 +45,15 @@ public class MybatisConfig {
         SqlSessionTemplate template = null;
         try {
             template = new SqlSessionTemplate(sqlSessionFactory());
-        }catch (Exception e) {e.printStackTrace();}
+
+        }
+        catch (Exception e) {e.printStackTrace();}
+
         return template;
     }
     @Bean
     public SqlSessionFactory sqlSessionFactory() throws Exception {
+
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource());
 

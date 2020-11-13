@@ -9,7 +9,6 @@ class SchedulerApplicationTests {
     @Test
     void contextLoads() {
 
-        System.out.println("asdf");
     }
 
 }

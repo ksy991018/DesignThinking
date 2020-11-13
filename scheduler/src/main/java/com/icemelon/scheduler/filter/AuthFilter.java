@@ -1,4 +1,4 @@
-package com.icemelon.scheduler.contorller;
+package com.icemelon.scheduler.filter;
 
 
 import com.icemelon.scheduler.dto.SessionToken;
@@ -23,6 +23,7 @@ public class AuthFilter implements Filter {
         HttpServletRequest request =  (HttpServletRequest) servletRequest;
 
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+
         String url = request.getHttpServletMapping().getMatchValue();
 
         String[] spStr = url.split("/");
@@ -37,7 +38,7 @@ public class AuthFilter implements Filter {
 
         SessionToken token = SessionToken.fromSession(session);
 
-        if (!token.getCode().equals(uniqueCode)) {
+        if (!uniqueCode.equals(token.getCode())) {
 
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
 

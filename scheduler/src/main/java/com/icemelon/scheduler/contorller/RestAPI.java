@@ -36,7 +36,6 @@ public class RestAPI {
     @RequestMapping(value = "auth/{code}/{userId}",method =  RequestMethod.GET)
     public ResponseEntity<Void> loginUser(@PathVariable("userId") String userId, @PathVariable("code") String code,
                                           @RequestBody Password password, HttpSession session) {
-
         UserId id = UserId.of(userId);
 
         UniqueCode uniqueCode = UniqueCode.fromString(code);
@@ -45,22 +44,26 @@ public class RestAPI {
 
             service.loginUser(uniqueCode, id, password, session);
 
+            return ResponseEntity.ok().build();
+
         } catch (Exception e) {
             //TODO - catch UserNotFoundException - 404 not found,  WrongPasswordException-  Auth failed
 
+            return ResponseEntity.notFound().build();
         }
     }
 
-    /*@GetMapping("/{code}/user") -> all registered users
-    * @GetMapping("/{code}/user/{userid}") -> login for specific user
-    * @GetMapping("/{code}") -> all info for schedule {code}
-    *
+    /*-@GetMapping("auth/{code}/{userId}")> login for userId
     *
     * Authentication filtered on AuthFilter
-    * @GetMapping("/{code}/info") -> minTime, maxTime, timeInterval, availableDOWs
-    * @GetMapping("/{code}/availability") => availabilities for all registered ids
-    * @GetMapping("/{code}/availability/{userid}") => availability for specific userid
-    * @GetMapping("/{code}/result") => returns list of available time with count
     *
+    * @PutMapping("schedule/") -> create schedule with baisc infomation e.g. minTime, maxTime, timeInterval, availableDOWs
+    * @GetMapping("schedule/{code}") -> all info for schedule {code}
+    * @GetMapping("schedule/{code}/user") -> all registered users
+    * @GetMapping("schedule/{code}/info") -> minTime, maxTime, timeInterval, availableDOWs
+    * @GetMapping("schedule/{code}/availability") =>  availabilities for all registered user
+    * @GetMapping("schedule/{code}/availability/{userid}") => availability for specific user
+    * @GetMapping("schedule/{code}/result") => returns list of overlapping availabilities with ranking
+    * @PostMapping("schedule/{code}/availability") => mark availability for session user
     * */
 }

@@ -1,2 +1,4 @@
-package com.icemelon.scheduler.entity;public class User {
+package com.icemelon.scheduler.entity;
+
+public class User {
 }
