@@ -1,5 +1,9 @@
 package com.icemelon.scheduler.dto;
 
+
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class UserId {
 
     private String id;
@@ -7,6 +11,10 @@ public class UserId {
     private UserId(String id) {
 
         this.id = id;
+    }
+
+    public UserId() {
+
     }
 
     public static UserId of(String id) {

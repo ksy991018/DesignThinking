@@ -1,8 +1,15 @@
 package com.icemelon.scheduler.dto;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class UniqueCode {
 
     private String code;
+
+    public UniqueCode() {
+
+    }
 
     public String getCode() {
         return code;

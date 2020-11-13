@@ -15,6 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -22,16 +23,16 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @Configuration
 @MapperScan(basePackages = {"com.icemelon.scheduler.mapper"})
-public class MybatisConfig {
+public class DBConfig {
 
     @Bean
-    public DataSourceTransactionManager transactionManager() {
+    public JpaTransactionManager transactionManager() {
 
-        DataSourceTransactionManager m = new DataSourceTransactionManager();
+        JpaTransactionManager manager = new JpaTransactionManager();
 
-        m.setDataSource(dataSource());
+        manager.setDataSource(dataSource());
 
-        return m;
+        return manager;
     }
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
     @Bean

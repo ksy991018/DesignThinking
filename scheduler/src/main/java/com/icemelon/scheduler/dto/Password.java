@@ -1,9 +1,24 @@
 package com.icemelon.scheduler.dto;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Password {
 
-
     private String password;
+
+    public Password() {}
+
+    private Password(String pass) {
+
+        this.password = pass;
+
+    }
+
+    public static Password from(String pass) {
+
+        return new Password(pass);
+    }
 
     @Override
     public boolean equals(Object obj) {

@@ -1,7 +1,5 @@
 package com.icemelon.scheduler.dto;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -13,7 +11,7 @@ public class ScheduleInfo {
 
     private int timeInterval;
 
-    private Set<Integer>  avaialableDOW= new TreeSet();
+    private Set<Integer> availableDOW = new TreeSet();
 
     public int getMinTime() {
 
@@ -25,12 +23,12 @@ public class ScheduleInfo {
         this.minTime = minTime;
     }
 
-    public Set<Integer> getAvaialableDOW() {
-        return avaialableDOW;
+    public Set<Integer> getAvailableDOW() {
+        return availableDOW;
     }
 
-    public void setAvaialableDOW(Set<Integer> avaialableDOW) {
-        this.avaialableDOW = avaialableDOW;
+    public void setAvailableDOW(Set<Integer> availableDOW) {
+        this.availableDOW = availableDOW;
     }
 
     public int getMaxTime() {
