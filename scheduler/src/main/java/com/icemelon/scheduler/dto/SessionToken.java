@@ -5,20 +5,17 @@ import javax.websocket.Session;
 
 public class SessionToken {
 
-    private UniqueCode code;
 
     private UserId userId;
 
-    private SessionToken(UniqueCode code,  UserId id) {
-
-        this.code = code;
+    private SessionToken(UserId id) {
 
         userId = id;
     }
 
-    public static SessionToken of(UniqueCode code,  UserId id) {
+    public static SessionToken of(UserId id) {
 
-        return new SessionToken(code, id);
+        return new SessionToken(id);
 
     }
 
@@ -26,13 +23,14 @@ public class SessionToken {
 
         UniqueCode code = UniqueCode.fromString((String) session.getAttribute("code"));
 
-        UserId id = UserId.of((String) session.getAttribute("id"));
+        NickName name = NickName.of((String) session.getAttribute("name"));
 
-        return new SessionToken(code, id);
+        return new SessionToken(UserId.of(code,name));
+
     }
     public UniqueCode getCode() {
 
-        return code;
+        return userId.getUniqueCode();
     }
 
     public UserId getId() {
@@ -42,9 +40,9 @@ public class SessionToken {
 
     public void insertToSession(HttpSession session) {
 
-        session.setAttribute("code" , code.toString());
+        session.setAttribute("code" , userId.getUniqueCode().toString());
 
-        session.setAttribute("id", userId.toString());
+        session.setAttribute("name", userId.toString());
     }
 
 

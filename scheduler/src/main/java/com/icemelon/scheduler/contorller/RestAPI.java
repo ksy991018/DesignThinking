@@ -1,10 +1,9 @@
 package com.icemelon.scheduler.contorller;
 
-import com.icemelon.scheduler.dto.Password;
-import com.icemelon.scheduler.dto.ScheduleInfo;
-import com.icemelon.scheduler.dto.UniqueCode;
-import com.icemelon.scheduler.dto.UserId;
+import com.icemelon.scheduler.dto.*;
 import com.icemelon.scheduler.dto.validator.IScheduleInfoValidator;
+import com.icemelon.scheduler.exception.LoginException;
+import com.icemelon.scheduler.exception.ScheduleNotFoundException;
 import com.icemelon.scheduler.service.SchedulerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,21 +36,26 @@ public class RestAPI {
     @RequestMapping(value = "auth/{code}/{userId}",method =  RequestMethod.GET)
     public ResponseEntity<Void> loginUser(@PathVariable("userId") String userId, @PathVariable("code") String code,
                                           @RequestBody Password password, HttpSession session) {
-        UserId id = UserId.of(userId);
+        NickName name = NickName.of(userId);
 
         UniqueCode uniqueCode = UniqueCode.fromString(code);
 
+        UserId id = UserId.of(uniqueCode, name);
+
         try {
 
-            service.loginUser(uniqueCode, id, password, session);
+            service.loginUser(id, password, session);
 
             return ResponseEntity.ok().build();
 
-        } catch (Exception e) {
+        } catch (ScheduleNotFoundException e) {
 
-            //TODO - catch UserNotFoundException - 404 not found,  WrongPasswordException-  Auth failed
 
             return ResponseEntity.notFound().build();
+
+        } catch (LoginException e) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 

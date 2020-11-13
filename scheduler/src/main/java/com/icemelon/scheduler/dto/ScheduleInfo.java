@@ -1,8 +1,12 @@
 package com.icemelon.scheduler.dto;
 
+import org.hibernate.annotations.CollectionId;
+
+import javax.persistence.*;
 import java.util.Set;
 import java.util.TreeSet;
 
+@Embeddable
 public class ScheduleInfo {
 
     private int minTime;
@@ -11,7 +15,20 @@ public class ScheduleInfo {
 
     private int timeInterval;
 
+    @ElementCollection
+    @CollectionTable(name="available_dow" , joinColumns = @JoinColumn(name = "schedule_code"))
+    @Column(name = "dow")
     private Set<Integer> availableDOW = new TreeSet();
+
+    private int getTimeBlocks() {
+
+        return (maxTime - minTime) / timeInterval;
+    }
+
+    public boolean matches(Availability availability) {
+
+        return availability.getAvailableTimeBlock() <= getTimeBlocks() && availableDOW.contains(availability.getDayOfWeek());
+    }
 
     public int getMinTime() {
 

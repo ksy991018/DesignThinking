@@ -7,28 +7,35 @@ import java.io.Serializable;
 @Embeddable
 public class UserId implements Serializable {
 
-    private String id;
+    private NickName name;
 
-    private UserId(String id) {
+    private UniqueCode uniqueCode;
 
-        this.id = id;
+
+    private UserId(NickName name , UniqueCode code) {
+
+        this.name = name;
+
+        this.uniqueCode = code;
     }
 
     public UserId() {
 
     }
 
+    public UniqueCode getUniqueCode() {return this.uniqueCode;}
+
 
     @Override
     public int hashCode() {
 
 
-        return id.hashCode();
+        return name.hashCode() + uniqueCode.hashCode();
     }
 
-    public static UserId of(String id) {
+    public static UserId of(UniqueCode code, NickName name) {
 
-        return new UserId(id);
+        return new UserId(name, code);
     }
     @Override
     public boolean equals(Object obj) {
