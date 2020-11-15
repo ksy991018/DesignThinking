@@ -22,7 +22,7 @@ public class Schedule {
     @EmbeddedId
     private UniqueCode uniqueCode;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "code", updatable = false, insertable = false)
     private List<User> userList = new ArrayList<>();
 
