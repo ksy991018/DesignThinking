@@ -18,7 +18,7 @@ public class ScheduleInfo {
     @ElementCollection
     @CollectionTable(name="available_dow" , joinColumns = @JoinColumn(name = "schedule_code"))
     @Column(name = "dow")
-    private Set<Integer> availableDOW = new TreeSet();
+    private Set<Integer> availableDOW = new TreeSet<>();
 
     public int getTimeBlocks() {
 

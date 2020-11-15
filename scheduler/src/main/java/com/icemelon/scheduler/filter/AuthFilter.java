@@ -16,6 +16,15 @@ import java.io.IOException;
 @Component
 public class AuthFilter implements Filter {
 
+
+    public boolean canFiltered(String url) {
+
+        url = url.trim();
+
+        if (url.equals("/schedule") || url.equals("/schedule/")) return false;
+
+        return true;
+    }
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
@@ -26,7 +35,8 @@ public class AuthFilter implements Filter {
 
         String url = request.getRequestURI();
 
-        if (url.equals("/schedule") || url.equals("/schedule/")) {
+
+        if (!canFiltered(url) ) {
 
             filterChain.doFilter(servletRequest,servletResponse);
 
