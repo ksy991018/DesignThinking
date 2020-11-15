@@ -18,9 +18,9 @@ public class ScheduleInfoVaildator implements  IScheduleInfoValidator{
 
         if (info.getMaxTime() <= info.getMinTime()) return false;
 
-        else if (info.getMaxTime() > MAX_MINUTE|| info.getMinTime() < 0) return false;
+        if (info.getMaxTime() > MAX_MINUTE|| info.getMinTime() < 0) return false;
 
-        else if (info.getTimeInterval() < MIN_INTERVAL) return false;
+        if (info.getTimeInterval() < MIN_INTERVAL) return false;
 
         int max = info.getMaxTime();
 
@@ -30,10 +30,8 @@ public class ScheduleInfoVaildator implements  IScheduleInfoValidator{
 
         int interval = info.getTimeInterval();
 
-        if (gap  % interval != 0) {
-
+        if (gap  % interval != 0)
             info.setMaxTime(Math.min(MAX_MINUTE , max + interval - (gap % interval)));
-        }
 
         return true;
 

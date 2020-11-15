@@ -23,9 +23,20 @@ public class UserId implements Serializable {
 
     }
 
+    public NickName getName() {
+
+        return this.name;
+    }
+
+    public void setName(NickName name) {
+
+        this.name = name;
+    }
+
     public UniqueCode getUniqueCode() {return this.uniqueCode;}
 
 
+    public void setUniqueCode(UniqueCode code) {this.uniqueCode = code;}
     @Override
     public int hashCode() {
 

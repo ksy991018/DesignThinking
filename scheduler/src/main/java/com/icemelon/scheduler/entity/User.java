@@ -1,8 +1,6 @@
 package com.icemelon.scheduler.entity;
 
-import com.icemelon.scheduler.dto.Availability;
-import com.icemelon.scheduler.dto.Password;
-import com.icemelon.scheduler.dto.UserId;
+import com.icemelon.scheduler.dto.*;
 
 import javax.persistence.*;
 import java.util.Iterator;
@@ -38,6 +36,23 @@ public class User {
     public void setAvailabilities(List<Availability> availabilities) {
 
         this.availabilities = availabilities;
+    }
+
+    public UserAvailability getUserAvailability() {
+
+        return new UserAvailability(id.getName().toString(), availabilities);
+    }
+    public void markResult(List<Result> results) {
+
+        NickName name = id.getName();
+
+        for (Result result : results) {
+
+            if (this.availabilities.contains(result.availability()))  result.markAvailable(name);
+
+            else result.markUnAvailable(name);
+        }
+
     }
 
     public boolean matchPassword(Password pass) {

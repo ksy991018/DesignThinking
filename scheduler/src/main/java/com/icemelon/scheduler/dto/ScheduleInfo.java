@@ -20,14 +20,14 @@ public class ScheduleInfo {
     @Column(name = "dow")
     private Set<Integer> availableDOW = new TreeSet();
 
-    private int getTimeBlocks() {
+    public int getTimeBlocks() {
 
         return (maxTime - minTime) / timeInterval;
     }
 
     public boolean matches(Availability availability) {
 
-        return availability.getAvailableTimeBlock() <= getTimeBlocks() && availableDOW.contains(availability.getDayOfWeek());
+        return availability.getAvailableTimeBlock() < getTimeBlocks() && availableDOW.contains(availability.getDayOfWeek());
     }
 
     public int getMinTime() {

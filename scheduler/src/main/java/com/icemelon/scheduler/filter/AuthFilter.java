@@ -35,9 +35,7 @@ public class AuthFilter implements Filter {
 
         String[] spStr = url.split("/");
 
-
         String code = spStr[2];
-
 
         UniqueCode uniqueCode = UniqueCode.fromString(code);
 

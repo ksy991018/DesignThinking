@@ -50,11 +50,39 @@ public class Schedule {
         return SessionToken.of(id);
     }
 
-    public List<Availability> getUserAvailability(UserId id) throws UserNotFoundException {
+    public AvailabilityList getAllAvailabilities() {
+
+        List<UserAvailability> list = new LinkedList<>();
+
+        for (User user : userList) {
+
+            list.add( user.getUserAvailability());
+        }
+
+        return new AvailabilityList(list);
+    }
+
+    public ResultList getResult() {
+
+        List<Result> list =  Result.allAvailable(this.info);
+
+        for (User user : this.userList) {
+
+            user.markResult(list);
+        }
+
+        ResultList resultList = new ResultList(list);
+
+        resultList.sort();
+
+        return resultList;
+    }
+
+    public UserAvailability getUserAvailability(UserId id) throws UserNotFoundException {
 
         User user = findUser(id);
 
-        return user.getAvailabilities();
+        return user.getUserAvailability();
 
     }
 

@@ -13,7 +13,6 @@ public class ViewController {
     * @GetMapping("/create") -> schedule creation page for host
     * @GetMapping("/{code}") -> availability selection page for {code}
     * @GetMapping("/{code}/result") -> result page for {code}
-
     *  */
 
 }

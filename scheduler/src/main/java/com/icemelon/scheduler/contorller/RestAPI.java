@@ -2,8 +2,10 @@ package com.icemelon.scheduler.contorller;
 
 import com.icemelon.scheduler.dto.*;
 import com.icemelon.scheduler.dto.validator.IScheduleInfoValidator;
+import com.icemelon.scheduler.entity.User;
 import com.icemelon.scheduler.exception.LoginException;
 import com.icemelon.scheduler.exception.ScheduleNotFoundException;
+import com.icemelon.scheduler.exception.UserNotFoundException;
 import com.icemelon.scheduler.service.SchedulerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,7 +52,6 @@ public class RestAPI {
 
         } catch (ScheduleNotFoundException e) {
 
-
             return ResponseEntity.notFound().build();
 
         } catch (LoginException e) {
@@ -59,6 +60,58 @@ public class RestAPI {
         }
     }
 
+    @GetMapping("schedule/{code}/result")
+    public ResponseEntity<ResultList> getResultList(@PathVariable("code") String code) {
+
+        UniqueCode uniqueCode = UniqueCode.fromString(code);
+
+        try {
+
+            return new ResponseEntity<ResultList>(service.getScheduleResult(uniqueCode) , HttpStatus.OK);
+
+        } catch (ScheduleNotFoundException ex) {
+
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    @GetMapping("schedule/{code}/availability")
+    public ResponseEntity<AvailabilityList> getAllAvailabilities(@PathVariable("code") String code) {
+
+        UniqueCode uniqueCode = UniqueCode.fromString(code);
+
+        try {
+
+            AvailabilityList list = service.getAllAvailabilities(uniqueCode);
+
+            return new ResponseEntity<>(list, HttpStatus.OK);
+
+        } catch (ScheduleNotFoundException exception) {
+
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    @GetMapping("schedule/{code}/availability/{id}")
+    public ResponseEntity<UserAvailability> getAvailability(@PathVariable("code") String code, @PathVariable("id") String name) {
+
+        UniqueCode uniqueCode = UniqueCode.fromString(code);
+
+        NickName nickName = NickName.of(name);
+
+        UserId id = UserId.of(uniqueCode, nickName);
+
+        try {
+            return new ResponseEntity<UserAvailability>(service.getUserAvailability(id), HttpStatus.OK);
+
+        } catch (UserNotFoundException | ScheduleNotFoundException ex) {
+
+            return ResponseEntity.notFound().build();
+
+        }
+    }
     /*
     *@GetMapping("auth/{code}/{userId}")> login for userId
     *

@@ -13,6 +13,7 @@ public class UniqueCode implements Serializable {
 
     public UniqueCode() {
 
+
     }
 
     public String getCode() {
