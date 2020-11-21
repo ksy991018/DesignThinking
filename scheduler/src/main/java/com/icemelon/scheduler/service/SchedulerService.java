@@ -36,7 +36,7 @@ public class SchedulerService {
 
     }
 
-    public AvailabilityList getAllAvailabilities(UniqueCode code) throws ScheduleNotFoundException {
+    public UserAvailabilityList getAllAvailabilities(UniqueCode code) throws ScheduleNotFoundException {
 
         Optional<Schedule> schedule = repository.findById(code);
 
@@ -76,9 +76,22 @@ public class SchedulerService {
 
         Schedule schedule = new Schedule.ScheduleBuilder().from(info).id(code).build();
 
-        repository.save(schedule);
+        repository.save(schedule); //saves to db
 
         return code;
+    }
+
+    public void setUserSchedule(UserId id , AvailabilityList list) throws ScheduleNotFoundException, UserNotFoundException {
+
+        UniqueCode code = id.getUniqueCode();
+
+        Optional<Schedule> schedule = repository.findById(code); //find user in db
+
+        if (schedule.isEmpty()) throw new ScheduleNotFoundException();
+
+        Schedule instance = schedule.get();
+
+        instance.setUserAvailability(id , list.getList());
     }
 
     public void loginUser(UserId id, Password pass, HttpSession session) throws LoginException, ScheduleNotFoundException{ // TODO - throws LoginException when failed;

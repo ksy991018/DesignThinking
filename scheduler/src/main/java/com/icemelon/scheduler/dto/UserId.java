@@ -46,10 +46,19 @@ public class UserId implements Serializable {
 
     public static UserId of(UniqueCode code, NickName name) {
 
+        if (name == null) name = NickName.of("");
+
+        if (code == null) code = new EmptyCode();
+
         return new UserId(name, code);
     }
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+
+        if (!(obj instanceof UserId)) return false;
+
+        UserId id = (UserId)obj;
+
+        return name.equals(id.name) && uniqueCode.equals(id.uniqueCode);
     }
 }

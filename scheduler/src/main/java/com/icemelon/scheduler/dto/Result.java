@@ -30,7 +30,6 @@ public class Result implements Comparable<Result>{
 
     private Set<String> unavailableUser = new HashSet<>();
 
-
     public Result(Availability availability) {
 
         this.availability = availability;

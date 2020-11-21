@@ -13,6 +13,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class SchedulerApplication {
 
+
+    /*
+     * TODO - add logging(logback)
+     *      - implement view controller
+     */
     public static void main(String[] args) {
 
         SpringApplication.run(SchedulerApplication.class, args);

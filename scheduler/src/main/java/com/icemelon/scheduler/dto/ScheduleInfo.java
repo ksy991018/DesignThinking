@@ -9,16 +9,26 @@ import java.util.TreeSet;
 @Embeddable
 public class ScheduleInfo {
 
-    private int minTime;
+    private int minTime; //minute 00 ~ 24 * 60
 
-    private int maxTime;
+    private int maxTime; //host
 
     private int timeInterval;
 
-    @ElementCollection
+    private int title;
+
+    public int getTitle() {
+        return title;
+    }
+
+    public void setTitle(int title) {
+        this.title = title;
+    }
+
+    @ElementCollection //jpa annotation
     @CollectionTable(name="available_dow" , joinColumns = @JoinColumn(name = "schedule_code"))
     @Column(name = "dow")
-    private Set<Integer> availableDOW = new TreeSet<>();
+    private Set<Integer> availableDOW = new TreeSet<>(); // day of week (요일)
 
     public int getTimeBlocks() {
 

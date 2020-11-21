@@ -1,16 +1,16 @@
 package com.icemelon.scheduler.dto;
 
-import com.icemelon.scheduler.entity.User;
-
-import java.util.LinkedList;
 import java.util.List;
 
 public class AvailabilityList {
 
-    private List<UserAvailability> list = new LinkedList<>();
+    private List<Availability> list;
 
-    public AvailabilityList(List<UserAvailability> list) {
+    public List<Availability> getList() {
+        return list;
+    }
 
+    public void setList(List<Availability> list) {
         this.list = list;
     }
 }

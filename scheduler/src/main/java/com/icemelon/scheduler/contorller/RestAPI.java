@@ -2,7 +2,6 @@ package com.icemelon.scheduler.contorller;
 
 import com.icemelon.scheduler.dto.*;
 import com.icemelon.scheduler.dto.validator.IScheduleInfoValidator;
-import com.icemelon.scheduler.entity.User;
 import com.icemelon.scheduler.exception.LoginException;
 import com.icemelon.scheduler.exception.ScheduleNotFoundException;
 import com.icemelon.scheduler.exception.UserNotFoundException;
@@ -24,6 +23,8 @@ public class RestAPI {
     private SchedulerService service;
 
 
+    // HTTP ->html -> front (design, form) , backend -> json , create_schedule
+    // data transfer object, json -> java object (spring function)
     @PutMapping("/schedule") // create schedule with basic info (minTime, maxTime, timeInterval)  and returns schedule unique code
     public ResponseEntity<UniqueCode> createSchedule(@RequestBody ScheduleInfo info) {
 
@@ -33,6 +34,27 @@ public class RestAPI {
 
         return new ResponseEntity<UniqueCode>(code, HttpStatus.OK);
 
+    }
+
+    @PostMapping("/schedule/{code}/availability/{id}")
+    public ResponseEntity<Void> setAvailability(@RequestBody  AvailabilityList list, @PathVariable("code") String code , @PathVariable("id") String userId) {
+
+        NickName name = NickName.of(userId);
+
+        UniqueCode uniqueCode = UniqueCode.fromString(code);
+
+        UserId id = UserId.of(uniqueCode, name);
+
+        try {
+
+            service.setUserSchedule(id, list);
+
+            return ResponseEntity.ok().build();//200 ok
+
+        } catch(ScheduleNotFoundException | UserNotFoundException e) {
+
+            return ResponseEntity.notFound().build(); //404 not found
+        }
     }
 
     @RequestMapping(value = "auth/{code}/{userId}",method =  RequestMethod.GET)
@@ -52,7 +74,7 @@ public class RestAPI {
 
         } catch (ScheduleNotFoundException e) {
 
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build(); //404
 
         } catch (LoginException e) {
 
@@ -77,13 +99,13 @@ public class RestAPI {
     }
 
     @GetMapping("schedule/{code}/availability")
-    public ResponseEntity<AvailabilityList> getAllAvailabilities(@PathVariable("code") String code) {
+    public ResponseEntity<UserAvailabilityList> getAllAvailabilities(@PathVariable("code") String code) {
 
         UniqueCode uniqueCode = UniqueCode.fromString(code);
 
         try {
 
-            AvailabilityList list = service.getAllAvailabilities(uniqueCode);
+            UserAvailabilityList list = service.getAllAvailabilities(uniqueCode);
 
             return new ResponseEntity<>(list, HttpStatus.OK);
 
@@ -104,6 +126,7 @@ public class RestAPI {
         UserId id = UserId.of(uniqueCode, nickName);
 
         try {
+
             return new ResponseEntity<UserAvailability>(service.getUserAvailability(id), HttpStatus.OK);
 
         } catch (UserNotFoundException | ScheduleNotFoundException ex) {
@@ -117,6 +140,7 @@ public class RestAPI {
     *
     * Authentication filtered on AuthFilter
     *
+    * schedule -> cr
     * @PutMapping("schedule/") -> create schedule with baisc infomation e.g. minTime, maxTime, timeInterval, availableDOWs
     * @GetMapping("schedule/{code}") -> all info for schedule {code}
     * @GetMapping("schedule/{code}/user") -> all registered users

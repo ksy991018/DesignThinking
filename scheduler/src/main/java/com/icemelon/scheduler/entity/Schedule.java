@@ -50,7 +50,7 @@ public class Schedule {
         return SessionToken.of(id);
     }
 
-    public AvailabilityList getAllAvailabilities() {
+    public UserAvailabilityList getAllAvailabilities() {
 
         List<UserAvailability> list = new LinkedList<>();
 
@@ -59,7 +59,7 @@ public class Schedule {
             list.add( user.getUserAvailability());
         }
 
-        return new AvailabilityList(list);
+        return new UserAvailabilityList(list);
     }
 
     public ResultList getResult() {
@@ -97,7 +97,7 @@ public class Schedule {
     }
 
 
-    public void setUserAvailability(UserId id , List<Availability> availabilities) throws InvalidAvailabilityException {
+    public void setUserAvailability(UserId id , List<Availability> availabilities) throws InvalidAvailabilityException, UserNotFoundException{
 
         User user = findUser(id);
 

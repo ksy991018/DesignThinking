@@ -10,9 +10,10 @@ public class ViewController {
 
 
     /*
-    * @GetMapping("/create") -> schedule creation page for host
+    * @GetMapping("/create") -> schedule creation page for host //html + js
     * @GetMapping("/{code}") -> availability selection page for {code}
     * @GetMapping("/{code}/result") -> result page for {code}
-    *  */
+    *
+    */
 
 }

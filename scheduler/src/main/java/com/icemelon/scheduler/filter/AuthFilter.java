@@ -1,6 +1,7 @@
 package com.icemelon.scheduler.filter;
 
 
+import com.icemelon.scheduler.dto.NickName;
 import com.icemelon.scheduler.dto.SessionToken;
 import com.icemelon.scheduler.dto.UniqueCode;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,29 @@ public class AuthFilter implements Filter {
 
         return true;
     }
+
+    private boolean certificateCode(String url, SessionToken token) {
+
+        String[] spStr = url.split("/");
+
+        String code = spStr[2];
+
+        UniqueCode uniqueCode = UniqueCode.fromString(code);
+
+        return uniqueCode.equals(token.getCode());
+
+    }
+
+    public boolean certificateUser(String url, SessionToken token) {
+
+        if (!url.matches("/schedule/.+/availability/.+$")) return true;
+
+        NickName name = token.getId().getName();
+
+        String urlName = url.split("/")[4].trim();
+
+        return name.toString().equals(urlName);
+    }
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
@@ -36,29 +60,23 @@ public class AuthFilter implements Filter {
         String url = request.getRequestURI();
 
 
-        if (!canFiltered(url) ) {
+        if (!canFiltered(url)) {
 
             filterChain.doFilter(servletRequest,servletResponse);
 
             return;
         }
 
-        String[] spStr = url.split("/");
-
-        String code = spStr[2];
-
-        UniqueCode uniqueCode = UniqueCode.fromString(code);
 
         HttpSession session =  request.getSession();
 
         SessionToken token = SessionToken.fromSession(session);
 
-        if (!uniqueCode.equals(token.getCode())) {
+        if(!certificateCode(url, token) || !certificateUser(url, token)) {
 
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
 
             return;
-
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

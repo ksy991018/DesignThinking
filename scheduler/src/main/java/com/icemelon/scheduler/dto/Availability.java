@@ -6,7 +6,7 @@ import java.util.List;
 @Embeddable
 public class Availability {
 
-    private int dayOfWeek;
+    private int dayOfWeek; //요일
 
     private int availableTimeBlock;
 
