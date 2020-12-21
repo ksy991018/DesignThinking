@@ -1,0 +1,30 @@
+button {
+    background-color: #c7f0ff;
+    border: 3px solid:black;
+    border-radius: 5px;
+    color:black;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 50px;
+    margin: .5%;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+}
+
+#container{
+    display:inline-block;
+    padding:5px;
+    width: 350px;
+    border: 2px solid #000000;
+    text-align: center;
+}
+
+#container2{
+    display:inline-block;
+    padding:3px;
+    width: 300px;
+    border: 1.5px solid #000000;
+    text-align: center;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function copy(val) {
+          var dummy = document.createElement("textarea");
+          document.body.appendChild(dummy);
+          dummy.value = val;
+          dummy.select();
+          document.execCommand("copy");
+          document.body.removeChild(dummy);
+          alert("URL이 클립보드에 복사되었습니다"); 
+        }
+    </script>
+</head>
+<body style="text-align: center;">
+
+    <h1>모임시간은</h1>
+
+    <hr>
+    <div id="result">
+        <style>
+             #result{
+                display:inline-block;
+                border-width : 2px;
+                width: 650px;
+                height: 500px;
+                margin: 20px;
+                border-style: solid;
+                }
+        </style>
+    </div>
+    
+    <div>
+        <h3>
+            <p><strong>Best time : </strong> <U>A요일 B시</U></p>
+        </h3>
+            <p>2위 : <U>A요일 B시</U></p>
+            <p>3위 : <U>A요일 B시</U></p>
+    </div>
+    <hr>
+
+    우리 만남 공유하기 <br>
+    <div id="share">
+        <a href="http://schedule.com/meetrightnow">http://schedule.com/hello</a>
+    </div> <hr>
+    <button onclick='copy("http://schedule.com/hello")'>URL 복사</button>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheduler</title>
+    <link rel="stylesheet" type="text/css"  href="login.css">
+
+    <script>
+
+    </script>
+
+</head>
+<body style = "text-align:center;">
+    
+    <div id="name"></div>
+    <h1>지금 만나러 가요!</h1>
+    <hr>
+    <div id="container">
+        <div id=daychoice></div>
+        <div id="timeline"></div>
+        <div id="timerange"></div>
+    </div>
+
+    <hr>
+    <form action="timechoice.html">
+        <h3>시간을 등록할래요!</h3> 
+        <input type="text" style="width:150px" name="id" placeholder="이름"> <br>
+        <input type="password" style="width:150px" name="password" placeholder="비밀번호(optional)">    
+        <br><br>
+        <input type="hidden" name="name">
+        <input type="hidden" name="week">
+        <input type="hidden" name="fromtime">
+        <input type="hidden" name="totime">
+        <input type="hidden" name="hours">
+        <button type="submit" value="go">등록하러 가기</button> 
+        <br><br>
+    </form>
+
+    <hr>
+    <h4>우리 만남 공유하기</h4>
+    <div id="container2">
+        링크 : (예시)http://schedule.com/hello
+    </div> 
+     
+    <button onclick='copy("http://schedule.com/hello")'>URL 복사</button>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./login.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheduler</title>
+    <link rel="stylesheet" type="text/css"  href="main.css">
+
+</head>
+<body style = "text-align:center;">
+  
+  <br>
+    <h1>지금 당장 만나?</h1>
+
+    <br>
+
+    <form action="login.html">
+      <div>
+        <label for="groupname">모임 이름을 정해주세요 > </label>
+        <input type="text" id="groupname" name="name" placeholder="생략 가능" >
+      </div>
+      
+      <br><hr>
+
+      <p id="question">
+        <h4>어느 요일에 만날까요? </h4>  
+      </p>
+
+
+     <div class="item">
+       <br>
+      <label for="Monday">월요일</label>
+      <label for="Tuesday">화요일</label>
+      <label for="Wednesday">수요일</label>
+      <label for="Thursday">목요일</label>
+      <label for="Friday">금요일</label>
+      <label for="Saturday">토요일</label>
+      <label for="Sunday">일요일</label>
+     </div>
+     
+     <div class="container">
+      <input type="checkbox" name="week" value="Monday">
+      <input type="checkbox" name="week" value="Tuesday">
+      <input type="checkbox" name="week" value="Wednesday">
+      <input type="checkbox" name="week" value="Thursday">
+      <input type="checkbox" name="week" value="Friday">
+      <input type="checkbox" name="week" value="Saturday">
+      <input type="checkbox" name="week" value="Sunday">
+     </div>
+     <br><br>
+      <hr>
+      
+      <h4>몇시부터 몇시에 만날까요? <br> </h4>
+      <div>
+        <input type="time" name="fromtime" value="fromtime"> ~
+        <input type="time" name = "totime" value="totime">사이에 <br><br>
+        <input type="number" min="1" max="24" name="hours" value="1">시간 동안 만나고 싶어요!
+      </div>
+
+      <br>
+
+      <label for="go">지금 만나러 갈까요?</label>
+      <button type="submit" value="go">좋아요!</button>
+       <br><br>
+       <hr>
+    </form>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./timechoice.js"></script>
+</body>
+</html>

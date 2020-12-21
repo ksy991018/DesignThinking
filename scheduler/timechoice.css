@@ -1,0 +1,52 @@
+#comment{
+    display:inline-block;
+    padding:5px;
+    width: 350px;
+    border: 2px solid #000000;
+    text-align: center;
+}
+
+#timeline {
+    width: 750px;
+    margin: auto;
+    background-color: #ffffff;
+    display: flex;
+    border-radius: 3%;
+    border: 2px solid #000000
+}
+
+#timeline #time-label {
+    padding-top: 59px;
+    padding-right: 5px;
+}
+
+#timeline #time-label div {
+    margin: 0;
+    height: 50px !important;
+}
+
+#timeline .weekday {
+}
+
+#timeline .weekday h4 {
+    text-align: center;
+    margin: none;
+    margin-bottom: 15px;
+}
+
+#timeline .weekday .time {
+    box-sizing: border-box;
+
+    width: 100px;
+    height: 25px;
+    border: 1px solid #dddddd;
+}
+
+#timeline .weekday .time.active {
+    background-color: #5fa7ff;
+    border: 1px solid #000000;
+}
+#timeline .weekday .notavailable{
+    background-color: #b1b1b1;
+    border: 1.5px solid #000000;
+}
